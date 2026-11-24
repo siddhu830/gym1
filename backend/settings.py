@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-gbyk-k+g*c6i6etz-5t350a)7*=j@r^h#1i%7-&@rcig!($cvb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["gym1-coral.vercel.app]
 
 
 # Application definition
