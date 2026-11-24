@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Trainers | FitPlan</title>
+    <link rel="stylesheet" href="{% static 'template/css/style.css' %}">
+    <script defer src="{% static 'template/js/script.js' %}"></script>
+    <style>
+        .trainers-page {
+            background: var(--paper);
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhoqiW-M6ychLd5ShU3uWT8MqjpRwCI172ips2SdVpNCph07vbPpwtl8DF&s=10');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            dispay: cover;
+
+        }
+
+        .trainers-hero {
+            padding: 70px 20px;
+            color: white;
+            text-align: left;
+        }
+
+        .trainers-hero p {
+            max-width: 650px;
+            margin: 0;
+        }
+
+        .trainer-list {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+            padding: 55px 16px 70px;
+           
+        }
+
+        .trainer-card {
+            overflow: hidden;
+            background: linear-gradient(120deg, #afba70, #76481c);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            display: cover;
+        }
+
+        .trainer-card:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .trainer-photo {
+            height: 260px;
+            background: #dce5dc;
+        }
+
+        .trainer-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .trainer-info {
+            padding: 22px;
+        }
+
+        .trainer-info h2 {
+            margin: 5px 0 10px;
+            font-size: 23px;
+        }
+
+        .trainer-specialty {
+            color: #60d6c5;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+
+        @media (max-width: 850px) {
+            .trainer-list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 560px) {
+            .trainer-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="trainers-page">
+    <header class="header">
+        <div class="container nav-wrap">
+            <a class="brand" href="{% url 'home' %}">
+                <span class="brand-mark">F</span> Fit<span>Plan</span>
+            </a>
+
+            <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
+
+            <nav class="main-nav" id="mainNav">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'classes' %}">Classes</a>
+                <a href="#trainers">Trainers</a>
+                <a href="{% url 'home' %}#plans">Plans</a>
+                <a href="{% url 'home' %}#contact">Contact</a>
+            </nav>
+
+            {% if user.is_authenticated %}
+                <form class="nav-auth" method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button class="btn btn-small nav" type="submit">Logout</button>
+                </form>
+                <a class="btn btn-small nav" href="{% url 'home' %}#plans">Join Now</a>
+            {% else %}
+                <a class="btn btn-small nav" href="{% url 'login' %}">Login</a>
+                <a class="btn btn-small nav" href="{% url 'signup' %}">Join Now</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <main id="trainers">
+        <section class="trainers-hero">
+            <p class="eyebrow" style="color: #3ecece;">YOUR GOALS. YOUR COACH.</p>
+            <h1 style="color: #dcdede; text-shadow: 1px 1px 2px #000000;">Meet your FitPlan trainers</h1>
+            <p style="color: #dcdede; text-shadow: 1px 1px 2px #000000;">Experienced coaches with practical training methods to help you build strength, improve fitness, and move with confidence.</p>
+        </section>
+
+        <section class="trainer-list" aria-label="FitPlan trainers">
+            <article class="trainer-card">
+                <div class="trainer-photo">
+                    <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Strength coach Rohan Mehta training at the gym">
+                </div>
+                <div class="trainer-info">
+                    <p class="trainer-specialty">STRENGTH &amp; MUSCLE BUILDING</p>
+                    <h2>Rohan Mehta</h2>
+                    <p>Rohan helps members build strength safely, whether they are new to lifting or ready to improve their performance.</p>
+                   
+                </div>
+            </article>
+
+            <article class="trainer-card">
+                <div class="trainer-photo">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Conditioning coach Ananya Rao during a workout">
+                </div>
+                <div class="trainer-info">
+                    <p class="trainer-specialty">HIIT &amp; CONDITIONING</p>
+                    <h2>Ananya Rao</h2>
+                    <p>Ananya creates energetic sessions that develop stamina and keep workouts varied and approachable.</p>
+                    
+                </div>
+            </article>
+
+            <article class="trainer-card">
+                <div class="trainer-photo">
+                    <img src="https://images.unsplash.com/photo-1546483875-ad9014c88eba?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mobility coach Kabir Singh leading a stretch">
+                </div>
+                <div class="trainer-info">
+                    <p class="trainer-specialty">YOGA &amp; MOBILITY</p>
+                    <h2>Kabir Singh</h2>
+                    <p>Kabir supports flexibility, balance, and recovery with sessions suited to different experience levels.</p>
+                  
+                </div>
+            </article>
+
+            <article class="trainer-card">
+                <div class="trainer-photo">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Functional fitness coach Meera Nair demonstrating an exercise">
+                </div>
+                <div class="trainer-info">
+                    <p class="trainer-specialty">FUNCTIONAL FITNESS</p>
+                    <h2>Meera Nair</h2>
+                    <p>Meera helps members improve everyday movement, coordination, and confidence through full-body training.</p>
+                    
+                </div>
+            </article>
+
+            <article class="trainer-card">
+                <div class="trainer-photo">
+                    <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Powerlifting coach Dev Patel lifting weights">
+                </div>
+                <div class="trainer-info">
+                    <p class="trainer-specialty">POWERLIFTING &amp; PERFORMANCE</p>
+                    <h2>Dev Patel</h2>
+                    <p>Dev coaches members who want to learn the main lifts and build a consistent, well-rounded strength routine.</p>
+                    
+                </div>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
