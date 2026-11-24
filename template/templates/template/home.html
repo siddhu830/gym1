@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FitPlan | Train with purpose</title>
+
+    <link rel="stylesheet" href="{% static 'template/css/style.css' %}">
+    <script defer src="{% static 'template/js/script.js' %}"></script>
+</head>
+
+<body>
+
+<div class="bcimg">
+    <div class="header">
+        <div class="container nav-wrap">
+
+            <a class="brand" href="#home">
+                <span class="brand-mark">F</span> Fit<span>Plan</span>
+            </a>
+
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                ☰
+            </button>
+
+            <div class="main-nav" id="mainNav">
+                <a href="#home">Home</a>
+                <a href="{% url 'classes' %}">Classes</a>
+                <a href="{% url 'trainers' %}">Trainers</a>
+                <a href="#plans">Plans</a>
+                <a href="#contact">Contact</a>
+            </div>
+
+            {% if user.is_authenticated %}
+                <form class="nav-auth" method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button class="btn btn-small nav" type="submit">Logout</button>
+                </form>
+                <a class="btn btn-small nav" href="{% url 'home' %}#plans">Join Now</a>
+            {% else %}
+                <a class="btn btn-small nav" href="{% url 'login' %}">Login</a>
+                <a class="btn btn-small nav" href="{% url 'signup' %}">Join Now</a>
+            {% endif %}
+
+        </div>
+    </div>
+    <div class="home1" id="home">
+        <div class="home_shade"></div>
+
+        <div class="container home-content">
+
+            <p class="eyebrow">YOUR FITNESS. YOUR PACE.</p>
+
+            <h1>
+                Stronger every day.
+                <br>
+                <em>Better every version.</em>
+            </h1>
+
+            <p>
+                Find the training, coaching and motivation that fit your goals
+                and make consistency your Deciplain.
+            </p>
+
+            <div class="home-actions">
+                <a class="btn" href="#plans">Explore Memberships</a>
+                <a class="btn btn-glass" href="#classes">Explore Classes</a>
+            </div>
+
+            {% if messages %}
+                <div class="container">
+                    {% for message in messages %}
+                        <p class="form-status">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <p class="home-note">
+                A smarter way to train starts here.
+            </p>
+
+        </div>
+    </div>
+    
+    <div class="section" id="classes">
+        <div class="container">
+
+            <div class="section-heading">
+
+                <div>
+                    <p class="eyebrow">MOVE WITH PURPOSE</p>
+                    <h2 class="home-light-text">Find your <em>kind of strong.</em></h2>
+                </div>
+
+                <a class="text-link" href="#contact">Ask about a class</a>
+
+            </div>
+
+
+            <div class="card-grid">
+
+                <div class="class-card">
+                    <div class="class-art one">
+                        <span>01</span>
+                    </div>
+
+                    <div class="card-body">
+                        <p class="tag">STRENGTH</p>
+                        <h3>Strength Training</h3>
+                        <p>Build strength with structured workouts and supportive coaching.</p>
+                    </div>
+                </div>
+
+
+                <div class="class-card">
+                    <div class="class-art two">
+                        <span>02</span>
+                    </div>
+
+                    <div class="card-body">
+                        <p class="tag">CONDITIONING</p>
+                        <h3>HIIT Workout</h3>
+                        <p>Improve your stamina with short and energetic workouts.</p>
+                    </div>
+                </div>
+
+
+                <div class="class-card">
+                    <div class="class-art three">
+                        <span>03</span>
+                    </div>
+
+                    <div class="card-body">
+                        <p class="tag">MOBILITY</p>
+                        <h3>Yoga & Mobility</h3>
+                        <p>Improve flexibility, balance and recovery through exercise.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="section soft" id="trainers">
+        <div class="container split">
+
+            <div>
+                <p class="eyebrow">GOOD COACHING CHANGES EVERYTHING</p>
+
+                <h2 class="home-light-text">
+                    Support for every
+                    <br>
+                    <em>step forward.</em>
+                </h2>
+
+                <p class="home-light-text">
+                    Whether you are new to the gym or ready for a challenge,
+                    our trainers will help you exercise with confidence.
+                </p>
+
+                <a class="btn" href="{% url 'trainers' %}">Meet Our Trainers</a>
+            </div>
+
+
+            <div class="trainer-feature">
+
+                <div class="trainer-badge">
+                    YOUR<br>TEAM
+                </div>
+
+                <div class="trainer-caption">
+                    <p><strong>Progress is personal.</strong></p>
+                    <p>Make your next move count.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="section" id="plans">
+        <div class="container">
+
+            <div class="section-heading">
+
+                <div>
+                    <p class="eyebrow">MEMBERSHIP OPTIONS</p>
+                    <h2 class="home-light-text">Choose your <em>commitment.</em></h2>
+                </div>
+            </div>
+
+
+            <div class="plan-grid">
+                {% for plan in plans %}
+                    <div class="plan-card{% if plan.featured %} featured{% endif %}">
+                        {% if plan.featured %}<p class="popular">MOST POPULAR</p>{% endif %}
+                        <p class="tag">{{ plan.category }}</p>
+                        <h3>{{ plan.name }}</h3>
+                        <p class="price">₹{{ plan.monthly_price|floatformat:0 }} <small>/ month</small></p>
+                        <p>{{ plan.description }}</p>
+                        <ul>
+                            {% for feature in plan.feature_list %}
+                                <li>{{ feature }}</li>
+                            {% endfor %}
+                        </ul>
+                        <form method="post" action="{% url 'join_plan' plan.slug %}">
+                            {% csrf_token %}
+                            <button class="btn{% if not plan.featured %} btn-outline{% endif %}" type="submit">
+                                {% if user.is_authenticated %}Choose Plan{% else %}Join Now{% endif %}
+                            </button>
+                        </form>
+                    </div>
+                {% empty %}
+                    <p>Membership plans are currently unavailable.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <div class="container cta-box">
+
+            <div>
+                <p class="eyebrow">READY WHEN YOU ARE</p>
+
+                <h2>
+                    Your next chapter
+                    <br>
+                    starts <em>with one step.</em>
+                </h2>
+            </div>
+
+            <a class="btn" href="#contact">Start Your Journey</a>
+
+        </div>
+    </div>
+
+    <div class="section contact-section" id="contact">
+        <div class="container contact-layout">
+
+            <div>
+                <p class="eyebrow">LET'S CONNECT</p>
+
+                <h2 class="home-light-text">Take the first <em>step.</em></h2>
+
+                <p class="home-light-text">
+                    Enter your details and our team can get in touch with you.
+                    Share your fitness goals and enquiries.
+                </p>
+            </div>
+
+            <form class="contact-form" id="contactForm" method="post" action="{% url 'home' %}">
+                {% csrf_token %}
+
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email"placeholder="Enter your email" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone"placeholder="Enter your phone number">
+
+                <label for="message">Your Message</label>
+                <textarea id="message" name="message" rows="4" placeholder="Tell us about your goals"></textarea>
+
+                <button class="btn" type="submit">Send Enquiry</button>
+
+            </form>
+
+        </div>
+    </div>
+
+
+    <div class="footer">
+        <div class="container footer-row">
+
+            <a class="brand brand-light" href="#home">
+                <span class="brand-mark">F</span> Fit<span>Plan</span>
+            </a>
+
+            <p>Build strength. Find balance. Stay consistent.</p>
+
+            <p><span id="year"></span> FitPlan</p>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

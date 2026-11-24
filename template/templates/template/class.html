@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+        <link rel="stylesheet" href="{% static 'template/css/style.css' %}">
+        <script defer src="{% static 'template/js/script.js' %}"></script>
+        <style>
+            body {
+                margin: 0;
+                display: cover;
+                justify-content: center;
+                align-items: center;
+                font-family: Arial, sans-serif;
+            }
+            p{
+                color: rgb(255, 255, 255);
+                font-size: 20px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                text-align: center;
+            }
+           em,h1 {
+                color: rgb(187, 198, 129);
+                
+                font-size: 37px;
+                Text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                text-align: center;
+            }
+
+            .bcimg1 {
+                background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTmCqRoFCLl6dqENnkZz1gUErAS5O_rgQF_yEvQoTPRg&s=10");
+                background-size: cover;
+                background-repeat: no-repeat; 
+                background-position: center;
+                background-attachment: fixed;
+            }
+            .trains {
+                min-height: 500px;
+                display: flex;
+                align-items: center;
+                color: rgb(1, 0, 0);
+                background: linear-gradient( to left, #829e46ed, #0b17178c, #0b17172b),url('');
+                background-size: cover;
+                background-position: center;
+            }
+            .trainers-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 20px;
+                padding: 20px;
+            }
+            .train-body {
+                padding: 20px;
+                background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStHA8kn_LrobpNsvfeG0Jc_cGinKTZqxKYUSrFRvX-0g&s=10');
+                background-size: cover;
+                background-position: center;
+                border-radius: 10px;
+                text-align: center;
+                color: black;
+                
+            }
+            .trains {
+                min-height: 500px;
+                display: flex;
+                align-items: center;
+                color: white;
+                background: linear-gradient(90deg, #0b1717ed, #0b17178c, #0b17172b),url('')
+                background-size: cover;
+                background-position: center;
+            }
+
+            .class-art {
+                height: 210px;
+                display: flex;
+                align-items: end;
+                padding: 22px;
+                color: white;
+                font-size: 45px;
+                font-weight: bold;
+                background-size: cover;
+                background-position: center;
+            }
+
+            .four {
+                background-image:
+                    linear-gradient(0deg, #1020188a, transparent),
+                    url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa7vgvBqAQAGR0RQqZtVsTePhxi9jVjPd12oLoKVlAsw&s=10');
+            }
+
+            .five {
+                background-image:
+                    linear-gradient(0deg, #1020188a, transparent),
+                    url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWFmbDHg7Ur7UN-VhV9UUMFn6eQ92tV0qTBpBVzQjeEmE3ye8Q9iMePSwq&s=10');
+            }
+        </style>
+</head>
+<body>
+
+    <div class="bcimg1">
+         <div class="header">
+        <div class="container nav-wrap">
+
+            <a class="brand" href="{% url 'home' %}">
+                <span class="brand-mark">F</span> Fit<span>Plan</span>
+            </a>
+
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                ☰
+            </button>
+
+            <div class="main-nav" id="mainNav">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="#classes">Classes</a>
+                <a href="{% url 'trainers' %}">Trainers</a>
+                <a href="{% url 'home' %}#plans">Plans</a>
+                <a href="{% url 'home' %}#contact">Contact</a>
+            </div>
+
+            {% if user.is_authenticated %}
+                <form class="nav-auth" method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button class="btn btn-small nav" type="submit">Logout</button>
+                </form>
+                <a class="btn btn-small nav" href="{% url 'home' %}#plans">Join Now</a>
+            {% else %}
+                <a class="btn btn-small nav" href="{% url 'login' %}">Login</a>
+                <a class="btn btn-small nav" href="{% url 'signup' %}">Join Now</a>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <div class="trains">
+            
+            <h1>
+                Guiding every rep with precision,
+             purpose, and power.
+                <br>
+                <em>Real coaching. 
+                     accountability.
+                    <br> Real results.</em>
+            </h1>
+
+            <p style="color: #a79842; text-shadow: 1px 1px 2px #000000;">
+               Coaching tailored to <br>where you are today and where you want to go
+            </p>
+           
+
+</div>
+     <div class="trainers-grid" id="classes">
+
+                <div class="trainer-card">
+                    <div class="class-art one">
+        
+                    </div>
+
+                    <div class="train-body">
+                        <p class="tag">STRENGTH</p>
+                        <h3>Strength Training</h3>
+                        <p style="color: #505739;">Build strength with structured workouts and supportive coaching.</p>
+                    </div>
+                </div>
+
+
+                <div class="trainer-card">
+                    <div class="class-art two">
+                     
+                    </div>
+
+                    <div class="train-body">
+                        <p class="tag">CONDITIONING</p>
+                        <h3>HIIT Workout</h3>
+                        <p style="color: #505739;">Improve your stamina with short and energetic workouts.</p>
+                    </div>
+                </div>
+
+
+                <div class="traiiner-card">
+                    <div class="class-art three">
+                    </div>
+
+                    <div class="train-body">
+                        <p class="tag">MOBILITY</p>
+                        <h3>Yoga & Mobility</h3>
+                        <p style="color: #505739;">Improve flexibility, balance and recovery through exercise.</p>
+                    </div>
+                    </div>
+                     <div class="trainer-card">
+                    <div class="class-art four">
+        
+                    </div>
+
+                    <div class="train-body">
+                        <p class="tag">CARDIO</p>
+                        <h3>Cardio Training</h3>
+                        <p style="color: #505739;">Build endurance with high-intensity cardiovascular workouts.</p>
+                    </div>
+                </div>
+
+                <div class="trainer-card">
+                    <div class="class-art five">
+        
+                    </div>
+
+                    <div class="train-body">
+                        <p class="tag">CIRCUIT TRAINING</p>
+                        <h3>Circuit Training</h3>
+                        <p style="color: #a6b869;">Combine strength and cardio exercises for a full-body workout.</p>
+                    </div>
+                </div>
+                
+                </div>
+        </div>
+
+    </div>
+
+
+</body>
+</html>
