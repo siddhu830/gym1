@@ -13,7 +13,7 @@ class FitPlanViewTests(TestCase):
         signup_response = self.client.get(reverse("signup"))
 
         self.assertEqual(home_response.status_code, 200)
-        self.assertContains(home_response, "/static/template/css/style.css")
+        self.assertContains(home_response, "/static/template/css/style.")
         self.assertContains(home_response, "Essential")
         self.assertEqual(classes_response.status_code, 200)
         self.assertContains(classes_response, "Strength Training")
